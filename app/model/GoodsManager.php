@@ -21,7 +21,7 @@ class GoodsManager
      *
      * @return Nette\Database\Table\Selection
      */
-    public function getTable()
+    public function getGoodsGrid()
     {
         return $this->database->table("zbozi")
             ->joinWhere("kategorie","zbozi.id_kategorie = kategorie.id")

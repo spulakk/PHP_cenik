@@ -4,6 +4,7 @@ namespace App\Presenters;
 
 use Nette;
 use Nette\Application\UI\Form;
+use Ublaboo\DataGrid\Column\Renderer;
 
 class ItemPresenter extends Nette\Application\UI\Presenter
 {
@@ -21,18 +22,31 @@ class ItemPresenter extends Nette\Application\UI\Presenter
     {
         $form = new Form();
 
-        $form->addText("code", "Kód");
+        $form->setRenderer(new Renderer());
 
-        $form->addText("name", "Název");
+        $form->getControls();
 
-        $form->addText("price", "Cena");
+        $form->addText("code", "Kód")
+            ->setAttribute("class", "form-control");
 
-        $form->addSelect("category", "Kategorie", $this->GoodsManager->itemPairs());
+        $form->addText("name", "Název")
+            ->setAttribute("class", "form-control");
+
+        $form->addText("price", "Cena")
+            ->setAttribute("class", "form-control");
+
+        $form->addSelect("category", "Kategorie", $this->GoodsManager->itemPairs())
+            ->setAttribute("class", "form-control");
+
+        $form->addSubmit("send", "Odeslat")
+            ->setAttribute("class", "btn btn-primary");
+
+        $form->onSuccess[] = [$this, "itemFormSuccess"];
 
         return $form;
     }
 
-    public function ItemFormSucceeded($form, $values)
+    public function itemFormSucceess($form, $values)
     {
 
     }

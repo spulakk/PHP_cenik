@@ -25,7 +25,7 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
     {
         $grid = new \Ublaboo\DataGrid\DataGrid();
 
-        $grid->setDataSource($this->GoodsManager->getTable());
+        $grid->setDataSource($this->GoodsManager->getGoodsGrid());
 
         $grid->getPrimaryKey("id");
 

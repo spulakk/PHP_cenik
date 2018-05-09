@@ -55,10 +55,20 @@ class Templatec7f6f8a0d6 extends Latte\Runtime\Template
 ?>
 
 	<div class="topnav">
-		<a class="active" href="#home">Tabulka</a>
-		<a href="#news">-</a>
-		<a href="#contact">-</a>
-		<a href="#about">-</a>
+		<a class="active" href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Homepage:")) ?>">Tabulka</a>
+		<a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Item:create")) ?>">Přidat položku</a>
+		<a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("this")) ?>">-</a>
+		<a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("this")) ?>">-</a>
+<?php
+		if ($user->loggedIn) {
+			?>			<a id="login" href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("this")) ?>">Odhlásit</a></li>
+<?php
+		}
+		else {
+			?>			<a id="login" href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("this")) ?>">Přihlásit</a></li>
+<?php
+		}
+?>
 	</div>
 
 <?php
@@ -88,17 +98,17 @@ class Templatec7f6f8a0d6 extends Latte\Runtime\Template
 	function blockScripts($_args)
 	{
 		extract($_args);
-		?>		<script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 31 */ ?>/bower_components/jquery/dist/jquery.js"></script>
-		<script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 32 */ ?>/bower_components/nette-forms/src/assets/netteForms.js"></script>
-		<script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 33 */ ?>/bower_components/nette.ajax.js/nette.ajax.js"></script>
-		<script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 34 */ ?>/bower_components/happy/dist/happy.js"></script>
-		<script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 35 */ ?>/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
-		<script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 36 */ ?>/bower_components/jquery-ui-sortable/jquery-ui-sortable.js"></script>
-		<script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 37 */ ?>/bower_components/ublaboo-datagrid/assets/dist/datagrid.js"></script>
-		<script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 38 */ ?>/bower_components/ublaboo-datagrid/assets/dist/datagrid-instant-url-refresh.js"></script>
-		<script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 39 */ ?>/bower_components/ublaboo-datagrid/assets/dist/datagrid-spinners.js"></script>
-		<script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 40 */ ?>/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-		<script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 41 */ ?>/bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
+		?>		<script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 36 */ ?>/bower_components/jquery/dist/jquery.js"></script>
+		<script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 37 */ ?>/bower_components/nette-forms/src/assets/netteForms.js"></script>
+		<script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 38 */ ?>/bower_components/nette.ajax.js/nette.ajax.js"></script>
+		<script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 39 */ ?>/bower_components/happy/dist/happy.js"></script>
+		<script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 40 */ ?>/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+		<script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 41 */ ?>/bower_components/jquery-ui-sortable/jquery-ui-sortable.js"></script>
+		<script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 42 */ ?>/bower_components/ublaboo-datagrid/assets/dist/datagrid.js"></script>
+		<script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 43 */ ?>/bower_components/ublaboo-datagrid/assets/dist/datagrid-instant-url-refresh.js"></script>
+		<script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 44 */ ?>/bower_components/ublaboo-datagrid/assets/dist/datagrid-spinners.js"></script>
+		<script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 45 */ ?>/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+		<script src="<?php echo LR\Filters::escapeHtmlAttr(LR\Filters::safeUrl($basePath)) /* line 46 */ ?>/bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
 		<script>
             $.nette.init();
 		</script>

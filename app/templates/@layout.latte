@@ -20,9 +20,14 @@
 
 	<div class="topnav">
 		<a class="active" n:href="Homepage:">Tabulka</a>
-		<a n:href="#news">-</a>
-		<a n:href="#contact">-</a>
-		<a n:href="#about">-</a>
+		<a n:href="Item:create">Přidat položku</a>
+		<a n:href="this">-</a>
+		<a n:href="this">-</a>
+		{if $user->loggedIn}
+			<a n:href="this" id="login">Odhlásit</a></li>
+		{else}
+			<a n:href="this" id="login">Přihlásit</a></li>
+		{/if}
 	</div>
 
 	{include content}
