@@ -11,14 +11,6 @@ a[href^="#error:"] {
     color: white;
 }
 
-.datagrid {
-    font-size: 12px;
-}
-
-form .required label {
-    font-weight: bold;
-}
-
 form .error {
     color: #D00;
     font-weight: bold;
@@ -53,7 +45,18 @@ form .error {
 }
 
 .datagrid {
+    font-size: 12px;
     background-color: white;
     width: 80%;
     margin: 0 auto;
+}
+
+.formContainer {
+    margin: 20px auto;
+    width: 60%;
+}
+
+
+.help-block {
+    color: red;
 }

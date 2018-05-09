@@ -24,8 +24,7 @@ class GoodsManager
     public function getGoodsGrid()
     {
         return $this->database->table("zbozi")
-            ->joinWhere("kategorie","zbozi.id_kategorie = kategorie.id")
-            ->select("zbozi.*, kategorie.kategorie");
+            ->fetchAll();
     }
 
     /**
@@ -35,6 +34,20 @@ class GoodsManager
      */
     public function itemPairs()
     {
-        return $this->database->table("kategorie")->fetchPairs("id", "kategorie");
+        return $this->database->table("kategorie")
+            ->fetchPairs("id", "kategorie");
+    }
+
+    /**
+     * Insert data into database
+     *
+     * @param $values
+     *
+     * @return Nette\Database\Table\ActiveRow
+     */
+    public function createItem($values)
+    {
+        return $this->database->table("zbozi")
+            ->insert($values);
     }
 }

@@ -4,7 +4,7 @@ namespace App\Presenters;
 
 use Nette;
 use Nette\Application\UI\Form;
-use Ublaboo\DataGrid\Column\Renderer;
+use Tomaj\Form\Renderer\BootstrapRenderer;
 
 class ItemPresenter extends Nette\Application\UI\Presenter
 {
@@ -18,36 +18,58 @@ class ItemPresenter extends Nette\Application\UI\Presenter
         $this->GoodsManager = $GoodsManager;
     }
 
+    /**
+     * Render template Item:create
+     */
+    public function renderCreate()
+    {
+        $this->template->page = "Item:create";
+    }
+
+    /**
+     * Create itemForm
+     *
+     * @return Form
+     */
     public function createComponentItemForm()
     {
         $form = new Form();
 
-        $form->setRenderer(new Renderer());
+        $form->setRenderer(new BootstrapRenderer());
 
-        $form->getControls();
+        $c = $form->addText("code", "Kód:")
+            ->setRequired();
 
-        $form->addText("code", "Kód")
-            ->setAttribute("class", "form-control");
+        $form->addText("name", "Název:")
+            ->setRequired();
 
-        $form->addText("name", "Název")
-            ->setAttribute("class", "form-control");
+        $form->addText("price", "Cena:")
+            ->setRequired();
 
-        $form->addText("price", "Cena")
-            ->setAttribute("class", "form-control");
+        $form->addSelect("category", "Kategorie:", $this->GoodsManager->itemPairs());
 
-        $form->addSelect("category", "Kategorie", $this->GoodsManager->itemPairs())
-            ->setAttribute("class", "form-control");
-
-        $form->addSubmit("send", "Odeslat")
-            ->setAttribute("class", "btn btn-primary");
+        $form->addSubmit("send", "Odeslat");
 
         $form->onSuccess[] = [$this, "itemFormSuccess"];
 
         return $form;
     }
 
-    public function itemFormSucceess($form, $values)
+    /**
+     * Callback on successful itemForm
+     *
+     * @param $form
+     * @param $values
+     */
+    public function itemFormSuccess($form, $values)
     {
+        $this->GoodsManager->createItem([
+            "kod" => $values->code,
+            "nazev" => $values->name,
+            "cena" => $values->price,
+            "id_kategorie" => $values->category
+        ]);
 
+        $this->flashMessage("Přidáno.", "success");
     }
 }

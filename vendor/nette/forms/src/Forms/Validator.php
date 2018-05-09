@@ -24,7 +24,7 @@ class Validator
 		Form::PROTECTION => 'Your session has expired. Please return to the home page and try again.',
 		Form::EQUAL => 'Please enter %s.',
 		Form::NOT_EQUAL => 'This value should not be %s.',
-		Form::FILLED => 'This field is required.',
+		Form::FILLED => 'Toto pole je povinné.',
 		Form::BLANK => 'This field should be blank.',
 		Form::MIN_LENGTH => 'Please enter at least %d characters.',
 		Form::MAX_LENGTH => 'Please enter no more than %d characters.',

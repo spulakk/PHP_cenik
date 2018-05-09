@@ -17,6 +17,14 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
     }
 
     /**
+     * Render template Homepage:default
+     */
+    public function renderDefault()
+    {
+        $this->template->page = "Homepage:default";
+    }
+
+    /**
      * Create goodsGrid
      *
      * @return \Ublaboo\DataGrid\DataGrid
@@ -36,7 +44,8 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
         $grid->addColumnText("nazev", "Název")
             ->addAttributes(["class" => "col-xs-4"])
             ->setSortable()
-            ->setFilterText("nazev", "Název");
+            ->setFilterText()
+            ->setPlaceholder("Hledat...");
 
         $grid->addColumnText("kod", "Kód")
             ->addAttributes(["class" => "col-xs-2"]);
@@ -45,10 +54,10 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
             ->addAttributes(["class" => "col-xs-3"])
             ->setSortable();
 
-        $grid->addColumnText("kategorie", "Kategorie")
+        $grid->addColumnText("id_kategorie", "Kategorie")
             ->addAttributes(["class" => "col-xs-2"])
-            ->setFilterText("kategorie", "Kategorie")
-            ->setExactSearch();
+            ->setReplacement([1 => "S", 2 => "M", 3 => "L", 4 => "XL"])
+            ->setFilterSelect(["" => "Vše", 1 => "S", 2 => "M", 3 => "L", 4 => "XL"]);
 
         return $grid;
     }

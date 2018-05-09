@@ -7,12 +7,10 @@ class Template561673141f extends Latte\Runtime\Template
 {
 	public $blocks = [
 		'content' => 'blockContent',
-		'title' => 'blockTitle',
 	];
 
 	public $blockTypes = [
 		'content' => 'html',
-		'title' => 'html',
 	];
 
 
@@ -38,26 +36,14 @@ class Template561673141f extends Latte\Runtime\Template
 		extract($_args);
 ?>
 
-    <a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Homepage:")) ?>">← zpět na výpis</a>
-
+    <div class="formContainer">
 <?php
-		$this->renderBlock('title', get_defined_vars());
-?>
-
-<?php
-		/* line 7 */ $_tmp = $this->global->uiControl->getComponent("itemForm");
+		/* line 4 */ $_tmp = $this->global->uiControl->getComponent("itemForm");
 		if ($_tmp instanceof Nette\Application\UI\IRenderable) $_tmp->redrawControl(null, false);
 		$_tmp->render();
 ?>
+    </div>
 
-<?php
-	}
-
-
-	function blockTitle($_args)
-	{
-		extract($_args);
-?>    <h2>Přidat položku</h2>
 <?php
 	}
 

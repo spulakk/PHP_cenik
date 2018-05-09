@@ -55,8 +55,16 @@ class Templatec7f6f8a0d6 extends Latte\Runtime\Template
 ?>
 
 	<div class="topnav">
-		<a class="active" href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Homepage:")) ?>">Tabulka</a>
-		<a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Item:create")) ?>">Přidat položku</a>
+		<a <?php
+		if ($page == "Homepage:default") {
+			?>class="active"<?php
+		}
+		?> href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Homepage:")) ?>">Tabulka</a>
+		<a <?php
+		if ($page == "Item:create") {
+			?>class="active"<?php
+		}
+		?> href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Item:create")) ?>">Přidat položku</a>
 		<a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("this")) ?>">-</a>
 		<a href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("this")) ?>">-</a>
 <?php
