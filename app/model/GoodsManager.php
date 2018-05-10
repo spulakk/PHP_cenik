@@ -39,13 +39,12 @@ class GoodsManager
     }
 
     /**
-     * Insert data into database
      *
-     * @param $values
      *
+     * @param Nette\Utils\ArrayHash $values
      * @return Nette\Database\Table\ActiveRow
      */
-    public function createItem($values)
+    public function createItem(Nette\Utils\ArrayHash $values)
     {
         return $this->database->table("zbozi")
             ->insert($values);

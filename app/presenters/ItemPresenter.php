@@ -37,18 +37,18 @@ class ItemPresenter extends Nette\Application\UI\Presenter
 
         $form->setRenderer(new BootstrapRenderer());
 
-        $c = $form->addText("code", "Kód:")
+        $c = $form->addText("kod", "Kód:")
             ->setRequired();
 
-        $form->addText("name", "Název:")
+        $form->addText("nazev", "Název:")
             ->setRequired();
 
-        $form->addText("price", "Cena:")
+        $form->addText("cena", "Cena:")
             ->setRequired();
 
-        $form->addSelect("category", "Kategorie:", $this->GoodsManager->itemPairs());
+        $form->addSelect("id_kategorie", "Kategorie:", $this->GoodsManager->itemPairs());
 
-        $form->addSubmit("send", "Odeslat");
+        $form->addSubmit("odeslat", "Odeslat");
 
         $form->onSuccess[] = [$this, "itemFormSuccess"];
 
@@ -58,18 +58,13 @@ class ItemPresenter extends Nette\Application\UI\Presenter
     /**
      * Callback on successful itemForm
      *
-     * @param $form
-     * @param $values
+     * @param Form $form
+     * @param Nette\Utils\ArrayHash $values
      */
-    public function itemFormSuccess($form, $values)
+    public function itemFormSuccess(Form $form, Nette\Utils\ArrayHash $values)
     {
-        $this->GoodsManager->createItem([
-            "kod" => $values->code,
-            "nazev" => $values->name,
-            "cena" => $values->price,
-            "id_kategorie" => $values->category
-        ]);
+        $this->GoodsManager->createItem($values);
 
-        $this->flashMessage("Přidáno.", "success");
+        $this->flashMessage("Položka byla přidána do ceníku.", "success");
     }
 }
