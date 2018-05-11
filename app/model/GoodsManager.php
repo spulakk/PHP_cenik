@@ -24,7 +24,7 @@ class GoodsManager
     public function getGoodsGrid()
     {
         return $this->database->table("zbozi")
-            ->fetchAll();
+            ->select("*");
     }
 
     /**
@@ -39,14 +39,41 @@ class GoodsManager
     }
 
     /**
+     * Create new item in database
      *
-     *
-     * @param Nette\Utils\ArrayHash $values
+     * @param $values
      * @return Nette\Database\Table\ActiveRow
      */
-    public function createItem(Nette\Utils\ArrayHash $values)
+    public function createItem($values)
     {
-        return $this->database->table("zbozi")
+        $this->database->table("zbozi")
             ->insert($values);
+    }
+
+    /**
+     * Edit item in database
+     *
+     * @param $id
+     * @param $values
+     * @return bool
+     */
+    public function editItem($id, $values)
+    {
+        $this->database->table("zbozi")
+            ->get($id)
+            ->update($values);
+    }
+
+    /**
+     * Delete item from database
+     *
+     * @param $id
+     * @return int
+     */
+    public function removeItem($id)
+    {
+        $this->database->table("zbozi")
+            ->get($id)
+            ->delete();
     }
 }

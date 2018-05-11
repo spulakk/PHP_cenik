@@ -59,38 +59,52 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
             ->setReplacement([1 => "S", 2 => "M", 3 => "L", 4 => "XL"])
             ->setFilterSelect(["" => "Vše", 1 => "S", 2 => "M", 3 => "L", 4 => "XL"]);
 
+        $grid->addAction("smazat", "", "smazat!")
+            ->setTitle("Smazat")
+            ->setIcon("trash")
+            ->setClass("btn btn-sm btn-danger ajax");
+
         $grid->addInlineEdit()
-                ->onControlAdd[] = function($container) {
-                    $container->addText('nazev', '');
-                    $container->addText('kod', '');
-                    $container->addText('cena', '');
-                    $container->addSelect('id_kategorie', '', [
-                        1 => 'S',
-                        2 => 'M',
-                        3 => 'L',
-                        4 => 'XL'
-                    ]);
-                };
+            ->setTitle("Upravit")
+            ->setIcon("edit")
+            ->setClass("btn btn-sm btn-primary ajax")
+            ->setShowNonEditingColumns(true);
+
+        $grid->getInlineEdit()->onControlAdd[] = function($container) {
+            $container->addText("nazev", "");
+            $container->addText("kod", "");
+            $container->addText("cena", "");
+            $container->addSelect("id_kategorie", "", [
+                1 => "S",
+                2 => "M",
+                3 => "L",
+                4 => "XL"
+            ]);
+        };
 
         $grid->getInlineEdit()->onSetDefaults[] = function($container, $item) {
             $container->setDefaults([
-                'nazev' => $item->nazev,
-                'kod' => $item->kod,
-                'cena' => $item->cena,
-                'id_kategorie' => $item->id_kategorie
+                "nazev" => $item->nazev,
+                "kod" => $item->kod,
+                "cena" => $item->cena,
+                "id_kategorie" => $item->id_kategorie
             ]);
         };
 
         $grid->getInlineEdit()->onSubmit[] = function($id, $values) {
-            $this->flashMessage("ahoj");
-            $this->redrawControl('flashes');
+            $this->GoodsManager->editItem($id, $values);
+            $this->flashMessage("Položka byla změněna.", "success");
+            $this->redrawControl("flashes");
         };
 
-        $grid->getInlineEdit()
-            ->setIcon('edit')
-            ->setClass("btn btn-sm btn-primary")
-            ->setShowNonEditingColumns(true);
-
         return $grid;
+    }
+
+    public function handleSmazat($id)
+    {
+        $this->GoodsManager->removeItem($id);
+        $this->flashMessage("Položka byla odstraněna.", "success");
+        $this->redrawControl("flashes");
+        $this["goodsGrid"]->reload();
     }
 }

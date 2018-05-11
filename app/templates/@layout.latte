@@ -16,7 +16,9 @@
 </head>
 
 <body>
+	{snippet flashes}
 	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+	{/snippet}
 
 	<div class="topnav">
 		<a {if $page == "Homepage:default"}class="active"{/if} n:href="Homepage:">Tabulka</a>

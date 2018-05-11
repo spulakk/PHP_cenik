@@ -66,5 +66,6 @@ class ItemPresenter extends Nette\Application\UI\Presenter
         $this->GoodsManager->createItem($values);
 
         $this->flashMessage("Položka byla přidána do ceníku.", "success");
+        $this->redirect("this");
     }
 }
