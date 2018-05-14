@@ -9,10 +9,29 @@ class UserManager
     /**
      * @var Nette\Database\Context
      */
-    private $database;
+    private $Database;
 
-    public function __construct(Nette\Database\Context $database)
+    /**
+     * @var Nette\Security\User
+     */
+    private $User;
+
+    /**
+     * @var \App\Authenticator\BasicAuthenticator
+     */
+    private $BasicAuthenticator;
+
+    public function __construct(Nette\Database\Context $Database, Nette\Security\User $User, \App\Authenticator\BasicAuthenticator $BasicAuthenticator)
     {
-        $this->database = $database;
+        $this->Database = $Database;
+        $this->User = $User;
+        $this->BasicAuthenticator = $BasicAuthenticator;
+    }
+
+
+    public function signIn($username, $password)
+    {
+        $this->User->setAuthenticator($this->BasicAuthenticator);
+        $this->User->login($username, $password);
     }
 }

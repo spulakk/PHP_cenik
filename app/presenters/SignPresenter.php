@@ -27,6 +27,14 @@ class SignPresenter extends Nette\Application\UI\Presenter
     }
 
     /**
+     * Render template Sign:up
+     */
+    public function renderUp()
+    {
+        $this->template->page = "Sign:up";
+    }
+
+    /**
      * Create signInForm
      *
      * @return Form
@@ -46,7 +54,7 @@ class SignPresenter extends Nette\Application\UI\Presenter
         $form->addSubmit("prihlasit", "Přihlásit");
 
         $form->addSubmit("registrovat", "Registrovat")
-            ->onInvalidClick[] = [$this, "redirectToRegistration"];
+            ->onInvalidClick[] = [$this, "redirectToSignUp"];
 
         $form->onSuccess[] = [$this, "signInFormSuccess"];
 
@@ -58,23 +66,66 @@ class SignPresenter extends Nette\Application\UI\Presenter
      *
      * @param Form $form
      * @param Nette\Utils\ArrayHash $values
+     * @throws Nette\Application\AbortException
      */
     public function signInFormSuccess(Form $form, Nette\Utils\ArrayHash $values)
     {
-        $this->flashMessage("Přihlášení bylo úspěšné.", "success");
+        $this->UserManager->signIn($values->jmeno, $values->heslo);
+        $this->flashMessage("Přihlášení proběhlo úspěšně.", "success");
         $this->redirect("Homepage:");
     }
 
+    /**
+     * Redirect to Sign:up template
+     *
+     * @throws Nette\Application\AbortException
+     */
     public function redirectToSignUp()
     {
         $this->redirect("Sign:up");
     }
 
     /**
-     * Render template Sign:up
+     * Create signUpForm
+     *
+     * @return Form
      */
-    public function renderUp()
+    public function createComponentSignUpForm()
     {
-        $this->template->page = "Sign:up";
+        $form = new Form();
+
+        $form->setRenderer(new BootstrapRenderer());
+
+        $form->addText("jmeno", "Jméno:")
+            ->setRequired();
+
+        $form->addEmail("email", "Email:")
+            ->setRequired();
+
+        $form->addPassword("password1", "Heslo:")
+            ->setRequired();
+
+        $form->addPassword("password2", "Heslo znovu:")
+            ->setRequired();
+
+        $form->addSubmit("registrovat", "Registrovat");
+
+        $form->onSuccess[] = [$this, "signUpFormSuccess"];
+
+        return $form;
+    }
+
+    /**
+     * Callback on successful signUpForm
+     *
+     * @param Form $form
+     * @param Nette\Utils\ArrayHash $values
+     * @throws Nette\Application\AbortException
+     */
+    public function signUpFormSuccess(Form $form, Nette\Utils\ArrayHash $values)
+    {
+        //handle registrace
+        $this->flashMessage("Registrace byla úspěšná.", "success");
+        $this->redirect("Sign:in");
     }
 }

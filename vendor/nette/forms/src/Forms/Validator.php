@@ -29,7 +29,7 @@ class Validator
 		Form::MIN_LENGTH => 'Please enter at least %d characters.',
 		Form::MAX_LENGTH => 'Please enter no more than %d characters.',
 		Form::LENGTH => 'Please enter a value between %d and %d characters long.',
-		Form::EMAIL => 'Please enter a valid email address.',
+		Form::EMAIL => 'Zadejte prosím platnou emailovou adresu.',
 		Form::URL => 'Please enter a valid URL.',
 		Form::INTEGER => 'Please enter a valid integer.',
 		Form::FLOAT => 'Please enter a valid number.',

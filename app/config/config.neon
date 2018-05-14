@@ -15,6 +15,7 @@ services:
 	router: App\RouterFactory::createRouter
 	- App\Model\GoodsManager
 	- App\Model\UserManager
+	- App\Authenticator\BasicAuthenticator
 
 database:
 	dsn: 'mysql:host=127.0.0.1;dbname=cenik'

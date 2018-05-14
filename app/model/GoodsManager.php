@@ -9,21 +9,21 @@ class GoodsManager
     /**
      * @var Nette\Database\Context
      */
-    private $database;
-
-    public function __construct(Nette\Database\Context $database)
+    private $Database;
+    
+    public function __construct(Nette\Database\Context $Database)
     {
-        $this->database = $database;
+        $this->Database = $Database;
     }
 
     /**
-     * Fetch data from database
+     * Fetch data from Database
      *
      * @return Nette\Database\Table\Selection
      */
     public function getGoodsGrid()
     {
-        return $this->database->table("zbozi")
+        return $this->Database->table("zbozi")
             ->select("*");
     }
 
@@ -34,24 +34,24 @@ class GoodsManager
      */
     public function itemPairs()
     {
-        return $this->database->table("kategorie")
+        return $this->Database->table("kategorie")
             ->fetchPairs("id", "kategorie");
     }
 
     /**
-     * Create new item in database
+     * Create new item in Database
      *
      * @param $values
      * @return Nette\Database\Table\ActiveRow
      */
     public function createItem($values)
     {
-        return $this->database->table("zbozi")
+        return $this->Database->table("zbozi")
             ->insert($values);
     }
 
     /**
-     * Edit item in database
+     * Edit item in Database
      *
      * @param $id
      * @param $values
@@ -59,20 +59,20 @@ class GoodsManager
      */
     public function editItem($id, $values)
     {
-        return $this->database->table("zbozi")
+        return $this->Database->table("zbozi")
             ->get($id)
             ->update($values);
     }
 
     /**
-     * Delete item from database
+     * Delete item from Database
      *
      * @param $id
      * @return int
      */
     public function removeItem($id)
     {
-        return $this->database->table("zbozi")
+        return $this->Database->table("zbozi")
             ->get($id)
             ->delete();
     }
