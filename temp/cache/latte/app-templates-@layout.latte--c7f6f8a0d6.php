@@ -66,7 +66,11 @@ class Templatec7f6f8a0d6 extends Latte\Runtime\Template
 <?php
 		}
 		else {
-			?>			<a id="login" href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("this")) ?>">Přihlásit</a></li>
+			?>			<a <?php
+			if ($page == "Sign:in") {
+				?>class="active"<?php
+			}
+			?> id="login" href="<?php echo LR\Filters::escapeHtmlAttr($this->global->uiControl->link("Sign:in")) ?>">Přihlásit</a></li>
 <?php
 		}
 ?>

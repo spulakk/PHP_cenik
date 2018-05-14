@@ -658,7 +658,7 @@ class Template6bb20c9c2a extends Latte\Runtime\Template
 		$iterator = end($this->global->its);
 		if ($actions || $control->isSortable() || $items_detail || $inlineEdit || $inlineAdd) {
 ?>						<th class="col-action text-center">
-							<?php echo LR\Filters::escapeHtmlText(call_user_func($this->filters->translate, 'ublaboo_datagrid.action')) /* line 202 */ ?>
+							<?php echo LR\Filters::escapeHtmlText(call_user_func($this->filters->translate, 'Akce')) /* line 202 */ ?>
 
 						</th>
 <?php

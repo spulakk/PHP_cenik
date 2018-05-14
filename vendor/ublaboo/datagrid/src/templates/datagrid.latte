@@ -199,7 +199,7 @@
 							{$th->endTag()|noescape}
 						{/foreach}
 						<th n:if="$actions || $control->isSortable() || $items_detail || $inlineEdit || $inlineAdd" class="col-action text-center">
-							{='ublaboo_datagrid.action'|translate}
+							{='Akce'|translate}
 						</th>
 					</tr>
 					<tr n:block="header-filters" n:if="!empty($filters) && !$control->hasOuterFilterRendering()">

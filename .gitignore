@@ -1,4 +1,4 @@
 app/config/config.local.neon
-
+temp/cache/
 .idea/
 180417_2IT_SP.txt

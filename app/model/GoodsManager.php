@@ -46,7 +46,7 @@ class GoodsManager
      */
     public function createItem($values)
     {
-        $this->database->table("zbozi")
+        return $this->database->table("zbozi")
             ->insert($values);
     }
 
@@ -59,7 +59,7 @@ class GoodsManager
      */
     public function editItem($id, $values)
     {
-        $this->database->table("zbozi")
+        return $this->database->table("zbozi")
             ->get($id)
             ->update($values);
     }
@@ -72,7 +72,7 @@ class GoodsManager
      */
     public function removeItem($id)
     {
-        $this->database->table("zbozi")
+        return $this->database->table("zbozi")
             ->get($id)
             ->delete();
     }

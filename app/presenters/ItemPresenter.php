@@ -37,7 +37,7 @@ class ItemPresenter extends Nette\Application\UI\Presenter
 
         $form->setRenderer(new BootstrapRenderer());
 
-        $c = $form->addText("kod", "Kód:")
+        $form->addText("kod", "Kód:")
             ->setRequired();
 
         $form->addText("nazev", "Název:")
