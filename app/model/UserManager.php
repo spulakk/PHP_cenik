@@ -39,6 +39,7 @@ class UserManager
     {
         $this->User->setAuthenticator($this->BasicAuthenticator);
         $this->User->login($username, $password);
+        $this->User->setExpiration("1 day");
     }
 
     /**
@@ -47,5 +48,17 @@ class UserManager
     public function signOut()
     {
         $this->User->logout();
+    }
+
+    /**
+     * Create new user in database
+     *
+     * @param $values
+     * @return Nette\Database\Table\ActiveRow
+     */
+    public function createUser($values)
+    {
+    return $this->Database->table("uzivatele")
+        ->insert($values);
     }
 }

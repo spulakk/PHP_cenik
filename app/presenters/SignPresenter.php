@@ -5,7 +5,6 @@ namespace App\Presenters;
 use Nette;
 use Nette\Application\UI\Form;
 use Tomaj\Form\Renderer\BootstrapRenderer;
-use Tracy\Debugger;
 
 class SignPresenter extends Nette\Application\UI\Presenter
 {
@@ -55,9 +54,10 @@ class SignPresenter extends Nette\Application\UI\Presenter
         $form->addSubmit("prihlasit", "Přihlásit");
 
         $form->addSubmit("registrovat", "Registrovat")
-            ->onInvalidClick[] = [$this, "redirectToSignUp"];
+            ->setValidationScope(false);
 
         $form->onSuccess[] = [$this, "signInFormSuccess"];
+
         return $form;
     }
 
@@ -70,24 +70,23 @@ class SignPresenter extends Nette\Application\UI\Presenter
      */
     public function signInFormSuccess(Form $form, Nette\Utils\ArrayHash $values)
     {
-        try {
-            $this->UserManager->signIn($values["jmeno"], $values["heslo"]);
-            $this->flashMessage("Přihlášení proběhlo úspěšně.", "success");
-            $this->redirect("Homepage:");
-        }
-        catch (Nette\Security\AuthenticationException $e) {
-            $this->flashMessage("Uživatelské jméno nebo heslo je nesprávné.", "danger");
-        }
-    }
+        if ($form["prihlasit"]->isSubmittedBy())
+        {
+            try {
+                $this->UserManager->signIn($values->jmeno, $values->heslo);
 
-    /**
-     * Redirect to Sign:up template
-     *
-     * @throws Nette\Application\AbortException
-     */
-    public function redirectToSignUp()
-    {
-        $this->redirect("Sign:up");
+                $this->flashMessage("Přihlášení proběhlo úspěšně.", "success");
+                $this->redirect("Homepage:");
+            }
+            catch (Nette\Security\AuthenticationException $e) {
+                $this->flashMessage("Uživatelské jméno nebo heslo je nesprávné.", "danger");
+            }
+        }
+
+        if ($form["registrovat"]->isSubmittedBy())
+        {
+            $this->redirect("Sign:up");
+        }
     }
 
     /**
@@ -107,10 +106,10 @@ class SignPresenter extends Nette\Application\UI\Presenter
         $form->addEmail("email", "Email:")
             ->setRequired();
 
-        $form->addPassword("password1", "Heslo:")
+        $form->addPassword("heslo", "Heslo:")
             ->setRequired();
 
-        $form->addPassword("password2", "Heslo znovu:")
+        $form->addPassword("heslo_overeni", "Heslo znovu:")
             ->setRequired();
 
         $form->addSubmit("registrovat", "Registrovat");
@@ -129,9 +128,20 @@ class SignPresenter extends Nette\Application\UI\Presenter
      */
     public function signUpFormSuccess(Form $form, Nette\Utils\ArrayHash $values)
     {
-        //handle registrace
-        $this->flashMessage("Registrace byla úspěšná.", "success");
-        $this->redirect("Sign:in");
+        if ($values->heslo == $values->heslo_overeni) {
+            $this->UserManager->createUser([
+                "jmeno" => $values->jmeno,
+                "email" => $values->email,
+                "heslo" => Nette\Security\Passwords::hash($values->heslo),
+                "role" => "user"
+            ]);
+
+            $this->flashMessage("Registrace byla úspěšná.", "success");
+            $this->redirect("Sign:in");
+        }
+        else {
+            $this->flashMessage("Zadaná hesla se neshodují.", "danger");
+        }
     }
 
     /**
@@ -140,6 +150,7 @@ class SignPresenter extends Nette\Application\UI\Presenter
     public function actionOut()
     {
         $this->UserManager->signOut();
+
         $this->flashMessage("Odhlášení bylo úspěšné.", "success");
         $this->redirect("Homepage:");
     }
