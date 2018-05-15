@@ -58,7 +58,6 @@ class SignPresenter extends Nette\Application\UI\Presenter
             ->onInvalidClick[] = [$this, "redirectToSignUp"];
 
         $form->onSuccess[] = [$this, "signInFormSuccess"];
-
         return $form;
     }
 
@@ -71,8 +70,6 @@ class SignPresenter extends Nette\Application\UI\Presenter
      */
     public function signInFormSuccess(Form $form, Nette\Utils\ArrayHash $values)
     {
-        Debugger::barDump($values["jmeno"]);
-        Debugger::barDump($values["heslo"]);
         try {
             $this->UserManager->signIn($values["jmeno"], $values["heslo"]);
             $this->flashMessage("Přihlášení proběhlo úspěšně.", "success");
@@ -137,10 +134,13 @@ class SignPresenter extends Nette\Application\UI\Presenter
         $this->redirect("Sign:in");
     }
 
+    /**
+     * @throws Nette\Application\AbortException
+     */
     public function actionOut()
     {
-        $this->getUser()->logout();
-        $this->flashMessage('Odhlášení bylo úspěšné.');
-        $this->redirect('Homepage:');
+        $this->UserManager->signOut();
+        $this->flashMessage("Odhlášení bylo úspěšné.", "success");
+        $this->redirect("Homepage:");
     }
 }

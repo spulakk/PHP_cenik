@@ -28,10 +28,24 @@ class UserManager
         $this->BasicAuthenticator = $BasicAuthenticator;
     }
 
-
+    /**
+     * Login
+     *
+     * @param $username
+     * @param $password
+     * @throws Nette\Security\AuthenticationException
+     */
     public function signIn($username, $password)
     {
         $this->User->setAuthenticator($this->BasicAuthenticator);
         $this->User->login($username, $password);
+    }
+
+    /**
+     * Logout
+     */
+    public function signOut()
+    {
+        $this->User->logout();
     }
 }
