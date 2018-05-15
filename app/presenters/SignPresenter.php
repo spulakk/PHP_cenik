@@ -5,6 +5,7 @@ namespace App\Presenters;
 use Nette;
 use Nette\Application\UI\Form;
 use Tomaj\Form\Renderer\BootstrapRenderer;
+use Tracy\Debugger;
 
 class SignPresenter extends Nette\Application\UI\Presenter
 {
@@ -70,9 +71,16 @@ class SignPresenter extends Nette\Application\UI\Presenter
      */
     public function signInFormSuccess(Form $form, Nette\Utils\ArrayHash $values)
     {
-        $this->UserManager->signIn($values->jmeno, $values->heslo);
-        $this->flashMessage("Přihlášení proběhlo úspěšně.", "success");
-        $this->redirect("Homepage:");
+        Debugger::barDump($values["jmeno"]);
+        Debugger::barDump($values["heslo"]);
+        try {
+            $this->UserManager->signIn($values["jmeno"], $values["heslo"]);
+            $this->flashMessage("Přihlášení proběhlo úspěšně.", "success");
+            $this->redirect("Homepage:");
+        }
+        catch (Nette\Security\AuthenticationException $e) {
+            $this->flashMessage("Uživatelské jméno nebo heslo je nesprávné.", "danger");
+        }
     }
 
     /**
@@ -127,5 +135,12 @@ class SignPresenter extends Nette\Application\UI\Presenter
         //handle registrace
         $this->flashMessage("Registrace byla úspěšná.", "success");
         $this->redirect("Sign:in");
+    }
+
+    public function actionOut()
+    {
+        $this->getUser()->logout();
+        $this->flashMessage('Odhlášení bylo úspěšné.');
+        $this->redirect('Homepage:');
     }
 }

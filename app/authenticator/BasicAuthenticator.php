@@ -34,10 +34,10 @@ class BasicAuthenticator implements Nette\Security\IAuthenticator
             throw new Nette\Security\AuthenticationException("Uživatel nenalezen.");
         }
 
-        if (!Nette\Security\Passwords::verify($password, $row->password)) {
+        if (!Nette\Security\Passwords::verify($password, $row->heslo)) {
             throw new Nette\Security\AuthenticationException("Neplatné heslo.");
         }
 
-        return new Nette\Security\Identity($row->id, $row->role, [$username => $row->username]);
+        return new Nette\Security\Identity($row->id, $row->role, [$username => $row->jmeno]);
     }
 }

@@ -5,11 +5,15 @@ div.flash {
 }
 
 div.success {
-    background: #28a745;
+    background-color: #28a745;
+}
+
+div.danger {
+    background-color: #dc3545;
 }
 
 a[href^="#error:"] {
-    background: red;
+    background-color: red;
     color: white;
 }
 

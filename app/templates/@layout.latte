@@ -26,7 +26,7 @@
 		<a n:href="this">-</a>
 		<a n:href="this">-</a>
 		{if $user->loggedIn}
-			<a n:href="this" id="login">Odhlásit</a></li>
+			<a n:href="Sign:out" id="login">Odhlásit</a></li>
 		{else}
 			<a {if $page == "Sign:in"}class="active"{/if} n:href="Sign:in" id="login">Přihlásit</a></li>
 		{/if}
