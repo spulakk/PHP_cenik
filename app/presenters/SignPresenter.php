@@ -72,13 +72,15 @@ class SignPresenter extends Nette\Application\UI\Presenter
     {
         if ($form["prihlasit"]->isSubmittedBy())
         {
-            try {
+            try
+            {
                 $this->UserManager->signIn($values->jmeno, $values->heslo);
 
                 $this->flashMessage("Přihlášení proběhlo úspěšně.", "success");
                 $this->redirect("Homepage:");
             }
-            catch (Nette\Security\AuthenticationException $e) {
+            catch (Nette\Security\AuthenticationException $e)
+            {
                 $this->flashMessage("Uživatelské jméno nebo heslo je nesprávné.", "danger");
             }
         }
@@ -132,8 +134,7 @@ class SignPresenter extends Nette\Application\UI\Presenter
             $this->UserManager->createUser([
                 "jmeno" => $values->jmeno,
                 "email" => $values->email,
-                "heslo" => Nette\Security\Passwords::hash($values->heslo),
-                "role" => "user"
+                "heslo" => Nette\Security\Passwords::hash($values->heslo)
             ]);
 
             $this->flashMessage("Registrace byla úspěšná.", "success");

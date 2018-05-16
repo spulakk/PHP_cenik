@@ -23,7 +23,7 @@
 	<div class="topnav">
 		<a {if $page == "Homepage:default"}class="active"{/if} n:href="Homepage:">Tabulka</a>
 		<a {if $page == "Item:create"}class="active"{/if} n:href="Item:create">Přidat položku</a>
-		<a {if $page == "Users:"}class="active" {/if} n:href="Users:">Uživatelé</a>
+		<a {if $page == "Users:default"}class="active" {/if} n:href="Users:">Uživatelé</a>
 		{if $user->loggedIn}
 			<a n:href="Sign:out" id="login">Odhlásit</a></li>
 		{else}

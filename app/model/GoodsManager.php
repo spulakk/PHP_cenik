@@ -17,7 +17,7 @@ class GoodsManager
     }
 
     /**
-     * Fetch data from Database
+     * Fetch data from database
      *
      * @return Nette\Database\Table\Selection
      */
@@ -39,7 +39,7 @@ class GoodsManager
     }
 
     /**
-     * Create new item in Database
+     * Create new item in database
      *
      * @param $values
      * @return Nette\Database\Table\ActiveRow
@@ -51,7 +51,7 @@ class GoodsManager
     }
 
     /**
-     * Edit item in Database
+     * Edit item in database
      *
      * @param $id
      * @param $values
@@ -65,7 +65,7 @@ class GoodsManager
     }
 
     /**
-     * Delete item from Database
+     * Delete item from database
      *
      * @param $id
      * @return int

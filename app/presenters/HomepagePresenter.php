@@ -28,6 +28,7 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
      * Create goodsGrid
      *
      * @return \Ublaboo\DataGrid\DataGrid
+     * @throws \Ublaboo\DataGrid\Exception\DataGridException
      */
     protected function createComponentGoodsGrid()
     {

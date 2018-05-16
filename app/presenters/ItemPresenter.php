@@ -11,7 +11,7 @@ class ItemPresenter extends Nette\Application\UI\Presenter
     /**
      * @var \App\Model\GoodsManager
      */
-    private $GoodsManager;
+    public $GoodsManager;
 
     public function __construct(\App\Model\GoodsManager $GoodsManager)
     {
