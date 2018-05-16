@@ -36,67 +36,68 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 
         $grid->setDataSource($this->GoodsManager->getGoodsGrid());
 
-        $grid->getPrimaryKey("id");
-
         $grid->addColumnNumber("id", "ID")
-            ->addAttributes(["class" => "col-xs-1"])
+            ->addAttributes(["class" => "col-sm-1"])
             ->setSortable();
 
         $grid->addColumnText("nazev", "Název")
-            ->addAttributes(["class" => "col-xs-4"])
+            ->addAttributes(["class" => "col-sm-4"])
             ->setSortable()
             ->setFilterText()
             ->setPlaceholder("Hledat...");
 
         $grid->addColumnText("kod", "Kód")
-            ->addAttributes(["class" => "col-xs-2"]);
+            ->addAttributes(["class" => "col-sm-3"]);
 
         $grid->addColumnText("cena", "Cena")
-            ->addAttributes(["class" => "col-xs-3"])
+            ->addAttributes(["class" => "col-sm-3"])
             ->setSortable();
 
         $grid->addColumnText("id_kategorie", "Kategorie")
-            ->addAttributes(["class" => "col-xs-2"])
+            ->addAttributes(["class" => "col-sm-1"])
             ->setReplacement([1 => "S", 2 => "M", 3 => "L", 4 => "XL"])
             ->setFilterSelect(["" => "Vše", 1 => "S", 2 => "M", 3 => "L", 4 => "XL"]);
 
-        $grid->addAction("smazat", "", "smazat!")
-            ->setTitle("Smazat")
-            ->setIcon("trash")
-            ->setClass("btn btn-sm btn-danger ajax");
+        if ($this->getUser()->isInRole(2))
+        {
+            $grid->addAction("smazat", "", "smazat!")
+                ->setTitle("Smazat")
+                ->setIcon("trash")
+                ->setClass("btn btn-sm btn-danger ajax");
 
-        $grid->addInlineEdit()
-            ->setTitle("Upravit")
-            ->setIcon("edit")
-            ->setClass("btn btn-sm btn-primary ajax")
-            ->setShowNonEditingColumns(true);
+            $grid->addInlineEdit()
+                ->setTitle("Upravit")
+                ->setIcon("edit")
+                ->setClass("btn btn-sm btn-primary ajax")
+                ->setShowNonEditingColumns(true);
 
-        $grid->getInlineEdit()->onControlAdd[] = function($container) {
-            $container->addText("nazev", "");
-            $container->addText("kod", "");
-            $container->addText("cena", "");
-            $container->addSelect("id_kategorie", "", [
-                1 => "S",
-                2 => "M",
-                3 => "L",
-                4 => "XL"
-            ]);
-        };
+            $grid->getInlineEdit()->onControlAdd[] = function($container) {
+                $container->addText("nazev", "");
+                $container->addText("kod", "");
+                $container->addText("cena", "");
+                $container->addSelect("id_kategorie", "", [
+                    1 => "S",
+                    2 => "M",
+                    3 => "L",
+                    4 => "XL"
+                ]);
+            };
 
-        $grid->getInlineEdit()->onSetDefaults[] = function($container, $item) {
-            $container->setDefaults([
-                "nazev" => $item->nazev,
-                "kod" => $item->kod,
-                "cena" => $item->cena,
-                "id_kategorie" => $item->id_kategorie
-            ]);
-        };
+            $grid->getInlineEdit()->onSetDefaults[] = function($container, $item) {
+                $container->setDefaults([
+                    "nazev" => $item->nazev,
+                    "kod" => $item->kod,
+                    "cena" => $item->cena,
+                    "id_kategorie" => $item->id_kategorie
+                ]);
+            };
 
-        $grid->getInlineEdit()->onSubmit[] = function($id, $values) {
-            $this->GoodsManager->editItem($id, $values);
-            $this->flashMessage("Položka byla změněna.", "success");
-            $this->redrawControl("flashes");
-        };
+            $grid->getInlineEdit()->onSubmit[] = function($id, $values) {
+                $this->GoodsManager->editItem($id, $values);
+                $this->flashMessage("Položka byla změněna.", "success");
+                $this->redrawControl("flashes");
+            };
+        }
 
         return $grid;
     }

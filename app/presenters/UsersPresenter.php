@@ -18,9 +18,16 @@ class UsersPresenter extends Nette\Application\UI\Presenter
 
     /**
      * Render template Users:default
+     *
+     * @throws Nette\Application\AbortException
      */
     public function renderDefault()
     {
+        if (!$this->getUser()->isInRole(2))
+        {
+            $this->flashMessage("Na tuto stránku nemáte povolený přístup.", "danger");
+            $this->redirect("Homepage:");
+        }
         $this->template->page = "Users:default";
     }
 
@@ -29,6 +36,7 @@ class UsersPresenter extends Nette\Application\UI\Presenter
      *
      * @return \Ublaboo\DataGrid\DataGrid
      * @throws \Ublaboo\DataGrid\Exception\DataGridColumnStatusException
+     * @throws \Ublaboo\DataGrid\Exception\DataGridException
      */
     public function createComponentUsersGrid()
     {
@@ -36,35 +44,41 @@ class UsersPresenter extends Nette\Application\UI\Presenter
 
         $grid->setDataSource($this->UserManager->getUsersGrid());
 
-        $grid->getPrimaryKey("id");
-
         $grid->addColumnText("jmeno", "Jméno")
-            ->addAttributes(["class" => "col-xs-5"]);
+            ->addAttributes(["class" => "col-sm-5"]);
 
         $grid->addColumnText("email", "Email")
-            ->addAttributes(["class" => "col-xs-5"]);
+            ->addAttributes(["class" => "col-sm-5"]);
 
-        $grid->addColumnStatus("role", "Role")
-            ->addAttributes(["class" => "col-xs-2"])
-            ->addOption(0, "user")
-                ->setClass("btn-warning")
+        $grid->addColumnStatus("id_role", "Role")
+            ->addAttributes(["class" => "col-sm-2"])
+            ->addOption(1, "user")
+                ->setClass("btn-sm btn-outline-danger")
                 ->endOption()
-            ->addOption(1, "admin")
-                ->setClass("btn-success")
+            ->addOption(2, "admin")
+                ->setClass("btn-sm btn-outline-success")
                 ->endOption()
             ->onChange[] = [$this, "statusChange"];
-        //bower install popper.js (--save)
+
+        $grid->addAction("smazat", "", "smazat!")
+            ->setTitle("Smazat")
+            ->setIcon("trash")
+            ->setClass("btn btn-sm btn-danger ajax");
 
         return $grid;
     }
 
     public function statusChange($id, $new_status)
     {
-        if (in_array($new_status, [0, 1]))
-        {
-            $this->UserManager->changeRole($id, $new_status);
-        }
-        $status_text = ["user", "admin"][$new_status];
+        $this->UserManager->changeRole($id, $new_status);
         $this['usersGrid']->redrawItem($id);
+    }
+
+    public function handleSmazat($id)
+    {
+        $this->UserManager->removeUser($id);
+        $this->flashMessage("Uživatel byl odstraněn.", "success");
+        $this->redrawControl("flashes");
+        $this["usersGrid"]->reload();
     }
 }

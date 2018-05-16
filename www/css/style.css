@@ -27,6 +27,14 @@ form .error {
     overflow: hidden;
 }
 
+.topnav p {
+    float: right;
+    color: #0062cc;
+    padding: 14px 16px;
+    font-size: 17px;
+    margin: 0;
+}
+
 .topnav a {
     float: left;
     color: white;
@@ -38,10 +46,12 @@ form .error {
 
 #login{
     float: right;
+    border-left: 2px #eee solid;
 }
 
 .topnav a:hover {
-    background-color: #ddd;
+    background-color: #eee;
+    text-decoration: none;
     color: black;
 }
 

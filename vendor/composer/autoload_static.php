@@ -26,6 +26,10 @@ class ComposerStaticInit091ed5d24b4127ffc48411e34be2086f
             'Symfony\\Component\\PropertyAccess\\' => 33,
             'Symfony\\Component\\Inflector\\' => 28,
         ),
+        'K' => 
+        array (
+            'Kravcik\\Macros\\' => 15,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -48,6 +52,10 @@ class ComposerStaticInit091ed5d24b4127ffc48411e34be2086f
         'Symfony\\Component\\Inflector\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/inflector',
+        ),
+        'Kravcik\\Macros\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kravcik/nette-macro-fontawesome/src',
         ),
     );
 

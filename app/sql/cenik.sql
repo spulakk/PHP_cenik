@@ -11,7 +11,7 @@ USE `cenik`;
 
 DROP TABLE IF EXISTS `kategorie`;
 CREATE TABLE `kategorie` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(1) NOT NULL AUTO_INCREMENT,
   `kategorie` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -23,13 +23,42 @@ INSERT INTO `kategorie` (`id`, `kategorie`) VALUES
 (3,	'L'),
 (4,	'XL');
 
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE `role` (
+  `id` int(1) NOT NULL AUTO_INCREMENT,
+  `role` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+TRUNCATE `role`;
+INSERT INTO `role` (`id`, `role`) VALUES
+(1,	'user'),
+(2,	'admin');
+
+DROP TABLE IF EXISTS `uzivatele`;
+CREATE TABLE `uzivatele` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `jmeno` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `heslo` varchar(255) NOT NULL,
+  `id_role` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `id_role` (`id_role`),
+  CONSTRAINT `uzivatele_ibfk_1` FOREIGN KEY (`id_role`) REFERENCES `role` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+TRUNCATE `uzivatele`;
+INSERT INTO `uzivatele` (`id`, `jmeno`, `email`, `heslo`, `id_role`) VALUES
+(1,	'Admin',	'admin@admin.admin',	'$2y$10$00wH8oC/xRBAr1iXTsisj.F0yeadIj0zSxfYWQiabQ16urs0LE5CC',	2),
+(2,	'user',	'user@seznam.cz',	'$2y$10$7U37lyEgA.1ZQdWa7xOSR.a8DyWsXNSyCTta6Ky7dJ/WENMQKCos.',	1);
+
 DROP TABLE IF EXISTS `zbozi`;
 CREATE TABLE `zbozi` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `kod` int(11) NOT NULL,
   `nazev` varchar(255) NOT NULL,
   `cena` int(11) NOT NULL,
-  `id_kategorie` int(11) NOT NULL,
+  `id_kategorie` int(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_druh` (`id_kategorie`),
   CONSTRAINT `zbozi_ibfk_1` FOREIGN KEY (`id_kategorie`) REFERENCES `kategorie` (`id`)
@@ -529,13 +558,9 @@ INSERT INTO `zbozi` (`id`, `kod`, `nazev`, `cena`, `id_kategorie`) VALUES
 (490,	10600901,	'PS 1309-6-tm',	271,	1),
 (491,	10601001,	'PS 1809-6-tm',	341,	4),
 (492,	10601101,	'PS 2518-6f-tm',	582,	1),
-(493,	10601201,	'PS 3625-11-tm',	2059,	4),
-(494,	10601301,	'PS 1818-6f-tm',	435,	3),
-(495,	10601401,	'PS 1811-6f-tm',	340,	2),
-(496,	10601501,	'PS 1813-6f-tm',	355,	3),
-(497,	10601601,	'PS 1813-9-tm',	401,	2),
-(498,	10650101,	'PS 77-8-tm',	206,	2),
-(499,	10650201,	'PS 97-8-tm',	239,	2),
-(500,	10650301,	'PS 99-8-tm',	281,	4);
+(493,	1,	'a',	1,	1),
+(494,	2,	'b',	2,	2),
+(495,	3,	'c',	3,	3),
+(496,	4,	'd',	4,	4);
 
--- 2018-05-03 18:18:35
+-- 2018-05-16 22:39:15

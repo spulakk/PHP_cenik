@@ -22,12 +22,15 @@
 
 	<div class="topnav">
 		<a {if $page == "Homepage:default"}class="active"{/if} n:href="Homepage:">Tabulka</a>
-		<a {if $page == "Item:create"}class="active"{/if} n:href="Item:create">Přidat položku</a>
-		<a {if $page == "Users:default"}class="active" {/if} n:href="Users:">Uživatelé</a>
 		{if $user->loggedIn}
-			<a n:href="Sign:out" id="login">Odhlásit</a></li>
+		<a {if $page == "Item:create"}class="active"{/if} n:href="Item:create">Přidat položku</a>
+		{if $user->roles["role"] == 2}
+			<a {if $page == "Users:default"}class="active"{/if} n:href="Users:">Uživatelé</a>
+		{/if}
+			<a n:href="Sign:out" id="login">Odhlásit</a>
+			<p>{icon user} {$user->identity->name}</p>
 		{else}
-			<a {if $page == "Sign:in"}class="active"{/if} n:href="Sign:in" id="login">Přihlásit</a></li>
+			<a {if $page == "Sign:in"}class="active"{/if} n:href="Sign:in" id="login">Přihlásit</a>
 		{/if}
 	</div>
 
@@ -35,6 +38,7 @@
 
 	{block scripts}
 		<script src="{$basePath}/bower_components/jquery/dist/jquery.js"></script>
+        <script src="{$basePath}/bower_components/popper.js/dist/umd/popper.js"></script>
 		<script src="{$basePath}/bower_components/nette-forms/src/assets/netteForms.js"></script>
 		<script src="{$basePath}/bower_components/nette.ajax.js/nette.ajax.js"></script>
 		<script src="{$basePath}/bower_components/happy/dist/happy.js"></script>

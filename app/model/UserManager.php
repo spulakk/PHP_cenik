@@ -39,7 +39,7 @@ class UserManager
     {
         $this->User->setAuthenticator($this->BasicAuthenticator);
         $this->User->login($username, $password);
-        $this->User->setExpiration("1 day");
+        $this->User->setExpiration("1 hour");
     }
 
     /**
@@ -62,6 +62,18 @@ class UserManager
     }
 
     /**
+     * Create new user in database
+     *
+     * @param $values
+     * @return Nette\Database\Table\ActiveRow
+     */
+    public function createUser($values)
+    {
+    return $this->Database->table("uzivatele")
+        ->insert($values);
+    }
+
+    /**
      * Change user's role
      *
      * @param $id
@@ -73,19 +85,20 @@ class UserManager
         return $this->Database->table("uzivatele")
             ->get($id)
             ->update([
-                "role" => $new_value
+                "id_role" => $new_value
             ]);
     }
 
     /**
-     * Create new user in database
+     * Delete user from database
      *
-     * @param $values
-     * @return Nette\Database\Table\ActiveRow
+     * @param $id
+     * @return int
      */
-    public function createUser($values)
+    public function removeUser($id)
     {
-    return $this->Database->table("uzivatele")
-        ->insert($values);
+        return $this->Database->table("uzivatele")
+            ->get($id)
+            ->delete();
     }
 }

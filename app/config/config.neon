@@ -17,6 +17,10 @@ services:
 	- App\Model\GoodsManager
 	- App\Model\UserManager
 
+latte:
+    macros:
+        - Kravcik\Macros\FontAwesomeMacro::install
+
 database:
 	dsn: 'mysql:host=127.0.0.1;dbname=cenik'
 	user: root

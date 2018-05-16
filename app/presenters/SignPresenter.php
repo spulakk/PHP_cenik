@@ -54,7 +54,8 @@ class SignPresenter extends Nette\Application\UI\Presenter
         $form->addSubmit("prihlasit", "Přihlásit");
 
         $form->addSubmit("registrovat", "Registrovat")
-            ->setValidationScope(false);
+            ->setValidationScope(false)
+            ->setAttribute("class", "btn btn-secondary");
 
         $form->onSuccess[] = [$this, "signInFormSuccess"];
 
@@ -75,7 +76,6 @@ class SignPresenter extends Nette\Application\UI\Presenter
             try
             {
                 $this->UserManager->signIn($values->jmeno, $values->heslo);
-
                 $this->flashMessage("Přihlášení proběhlo úspěšně.", "success");
                 $this->redirect("Homepage:");
             }

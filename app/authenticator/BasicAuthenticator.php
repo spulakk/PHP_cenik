@@ -38,6 +38,6 @@ class BasicAuthenticator implements Nette\Security\IAuthenticator
             throw new Nette\Security\AuthenticationException("Neplatné heslo.");
         }
 
-        return new Nette\Security\Identity($row->id, $row->role, [$username => $row->jmeno]);
+        return new Nette\Security\Identity($row->id, ["role" => $row->id_role], ["name" => $row->jmeno]);
     }
 }

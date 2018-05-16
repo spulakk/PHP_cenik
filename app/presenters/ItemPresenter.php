@@ -20,9 +20,16 @@ class ItemPresenter extends Nette\Application\UI\Presenter
 
     /**
      * Render template Item:create
+     *
+     * @throws Nette\Application\AbortException
      */
     public function renderCreate()
     {
+        if (!$this->getUser()->isLoggedIn())
+        {
+            $this->flashMessage("Pro zobrazení této stránky se musíte přihlásit.", "danger");
+            $this->redirect("Sign:in");
+        }
         $this->template->page = "Item:create";
     }
 

@@ -1,5 +1,49 @@
 [
     {
+        "name": "kravcik/nette-macro-fontawesome",
+        "version": "v1.1.0",
+        "version_normalized": "1.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kravcik/nette-macro-fontawesome.git",
+            "reference": "8510699d717090fe2561572cfdf833d9fd85cc1b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kravcik/nette-macro-fontawesome/zipball/8510699d717090fe2561572cfdf833d9fd85cc1b",
+            "reference": "8510699d717090fe2561572cfdf833d9fd85cc1b",
+            "shasum": ""
+        },
+        "require": {
+            "latte/latte": ">=2.3",
+            "nette/utils": ">=2.3",
+            "php": ">=5.6.0"
+        },
+        "require-dev": {
+            "nette/tester": "*",
+            "tracy/tracy": "*"
+        },
+        "time": "2017-06-05T11:02:58+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Kravcik\\Macros\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "description": "Simple macro for Nette framework, which allow short entry of font-awesome icons.",
+        "homepage": "https://github.com/kravcik/nette-macro-fontawesome",
+        "keywords": [
+            "font awesome",
+            "macro",
+            "nette"
+        ]
+    },
+    {
         "name": "latte/latte",
         "version": "v2.4.7",
         "version_normalized": "2.4.7.0",

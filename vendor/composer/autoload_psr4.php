@@ -11,4 +11,5 @@ return array(
     'Symfony\\Polyfill\\Php70\\' => array($vendorDir . '/symfony/polyfill-php70'),
     'Symfony\\Component\\PropertyAccess\\' => array($vendorDir . '/symfony/property-access'),
     'Symfony\\Component\\Inflector\\' => array($vendorDir . '/symfony/inflector'),
+    'Kravcik\\Macros\\' => array($vendorDir . '/kravcik/nette-macro-fontawesome/src'),
 );
