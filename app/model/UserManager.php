@@ -33,13 +33,20 @@ class UserManager
      *
      * @param $username
      * @param $password
+     * @param $remember
      * @throws Nette\Security\AuthenticationException
      */
-    public function signIn($username, $password)
+    public function signIn($username, $password, $remember)
     {
         $this->User->setAuthenticator($this->BasicAuthenticator);
         $this->User->login($username, $password);
-        $this->User->setExpiration("1 hour");
+        if ($remember == true)
+        {
+            $this->User->setExpiration("14 days");
+        }
+        else {
+            $this->User->setExpiration("1 hours");
+        }
     }
 
     /**

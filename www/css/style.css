@@ -35,6 +35,11 @@ form .error {
     margin: 0;
 }
 
+#login{
+    float: right;
+    border-left: 1px #fff solid;
+}
+
 .topnav a {
     float: left;
     color: white;
@@ -44,13 +49,8 @@ form .error {
     font-size: 17px;
 }
 
-#login{
-    float: right;
-    border-left: 2px #eee solid;
-}
-
 .topnav a:hover {
-    background-color: #eee;
+    background-color: #ddd;
     text-decoration: none;
     color: black;
 }
@@ -75,4 +75,19 @@ form .error {
 
 .help-block {
     color: red;
+}
+
+.dropdown-menu li:hover {
+    background-color: #f2f2f2;
+}
+
+.dropdown-menu li a {
+    clear: both;
+    padding: 1px 10px;
+    font-weight: 400;
+    color: #333;;
+}
+
+.dropdown-menu li a:hover {
+    text-decoration: none;
 }

@@ -31,6 +31,7 @@
 	Panel.prototype.init = function() {
 		var _this = this, elem = this.elem;
 
+		this.init = function() {};
 		elem.innerHTML = elem.dataset.tracyContent;
 		Tracy.Dumper.init(this.dumps, elem);
 		delete elem.dataset.tracyContent;
@@ -45,22 +46,16 @@
 			}
 		});
 
-		elem.addEventListener('mousedown', function(e) {
-			if (isTargetChanged(e.relatedTarget, this)) {
-				_this.focus();
-			}
+		elem.addEventListener('mousedown', function() {
+			_this.focus();
 		});
 
-		elem.addEventListener('mouseover', function(e) {
-			if (isTargetChanged(e.relatedTarget, this)) {
-				clearTimeout(elem.Tracy.displayTimeout);
-			}
+		elem.addEventListener('mouseenter', function() {
+			clearTimeout(elem.Tracy.displayTimeout);
 		});
 
-		elem.addEventListener('mouseout', function(e) {
-			if (isTargetChanged(e.relatedTarget, this)) {
-				_this.blur();
-			}
+		elem.addEventListener('mouseleave', function() {
+			_this.blur();
 		});
 
 		elem.addEventListener('click', function() {
@@ -247,9 +242,7 @@
 
 				} else if (this.rel) {
 					var panel = Debug.panels[this.rel];
-					if (panel.elem.dataset.tracyContent) {
-						panel.init();
-					}
+					panel.init();
 
 					if (e.shiftKey) {
 						panel.toFloat();
@@ -269,29 +262,27 @@
 				e.preventDefault();
 			});
 
-			a.addEventListener('mouseover', function(e) {
-				if (isTargetChanged(e.relatedTarget, this) && this.rel && this.rel !== 'close' && !elem.classList.contains('tracy-dragged')) {
+			a.addEventListener('mouseenter', function(e) {
+				if (!e.buttons && this.rel && this.rel !== 'close' && !elem.classList.contains('tracy-dragged')) {
 					var panel = Debug.panels[this.rel], link = this;
 					panel.focus(function() {
 						if (panel.is(Panel.PEEK)) {
-							if (panel.elem.dataset.tracyContent) {
-								panel.init();
-							}
+							panel.init();
 
 							var pos = getPosition(panel.elem);
 							setPosition(panel.elem, {
 								right: pos.right - getOffset(link).left + pos.width - getPosition(link).width - 4 + getOffset(panel.elem).left,
 								bottom: _this.isAtTop()
-									? getPosition(elem).bottom - pos.height - 4
-									: pos.bottom - getOffset(elem).top + pos.height + 4 + getOffset(panel.elem).top
+									? getPosition(_this.elem).bottom - pos.height - 4
+									: pos.bottom - getOffset(_this.elem).top + pos.height + 4 + getOffset(panel.elem).top
 							});
 						}
 					});
 				}
 			});
 
-			a.addEventListener('mouseout', function(e) {
-				if (isTargetChanged(e.relatedTarget, this) && this.rel && this.rel !== 'close' && !elem.classList.contains('tracy-dragged')) {
+			a.addEventListener('mouseleave', function() {
+				if (this.rel && this.rel !== 'close' && !elem.classList.contains('tracy-dragged')) {
 					Debug.panels[this.rel].blur();
 				}
 			});
@@ -313,14 +304,15 @@
 	};
 
 	Bar.prototype.savePosition = function() {
-		var pos = getPosition(document.getElementById(this.id));
-		localStorage.setItem(this.id, JSON.stringify({right: pos.right, bottom: pos.bottom}));
+		var pos = getPosition(this.elem),
+			atTop = this.isAtTop();
+		localStorage.setItem(this.id, JSON.stringify({right: pos.right, bottom: pos.bottom + (atTop ? pos.height : 0), atTop: atTop}));
 	};
 
 	Bar.prototype.restorePosition = function() {
 		var pos = JSON.parse(localStorage.getItem(this.id));
 		if (pos) {
-			setPosition(document.getElementById(this.id), pos);
+			setPosition(this.elem, {right: pos.right, bottom: pos.bottom - (pos.atTop ? getPosition(this.elem).height : 0)});
 		}
 	};
 
@@ -375,7 +367,9 @@
 		Debug.layer.insertAdjacentHTML('beforeend', content);
 		evalScripts(Debug.layer);
 		ajaxBar = document.getElementById('tracy-ajax-bar');
-		document.getElementById(Bar.prototype.id).appendChild(ajaxBar);
+		Debug.bar.savePosition();
+		Debug.bar.elem.appendChild(ajaxBar);
+		Debug.bar.restorePosition();
 
 		forEach(document.querySelectorAll('.tracy-panel'), function(panel) {
 			if (!Debug.panels[panel.id]) {
@@ -473,17 +467,6 @@
 				script.tracyEvaluated = true;
 			}
 		});
-	}
-
-	// emulate mouseenter & mouseleave
-	function isTargetChanged(target, dest) {
-		while (target) {
-			if (target === dest) {
-				return;
-			}
-			target = target.parentNode;
-		}
-		return true;
 	}
 
 

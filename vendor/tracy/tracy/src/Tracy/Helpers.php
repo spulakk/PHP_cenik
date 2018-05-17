@@ -42,7 +42,7 @@ class Helpers
 
 	/**
 	 * Returns link to editor.
-	 * @return string
+	 * @return string|null
 	 */
 	public static function editorUri($file, $line = null)
 	{
@@ -72,7 +72,9 @@ class Helpers
 	{
 		$m = explode('::', $method);
 		foreach ($trace as $i => $item) {
-			if (isset($item['function']) && $item['function'] === end($m)
+			if (
+				isset($item['function'])
+				&& $item['function'] === end($m)
 				&& isset($item['class']) === isset($m[1])
 				&& (!isset($item['class']) || $m[0] === '*' || is_a($item['class'], $m[0], true))
 			) {

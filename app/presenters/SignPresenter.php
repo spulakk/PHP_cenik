@@ -51,6 +51,8 @@ class SignPresenter extends Nette\Application\UI\Presenter
         $form->addPassword("heslo", "Heslo:")
             ->setRequired();
 
+        $form->addCheckbox("pamatovat", " Zapamatovat si mě");
+
         $form->addSubmit("prihlasit", "Přihlásit");
 
         $form->addSubmit("registrovat", "Registrovat")
@@ -75,7 +77,13 @@ class SignPresenter extends Nette\Application\UI\Presenter
         {
             try
             {
-                $this->UserManager->signIn($values->jmeno, $values->heslo);
+                $this->UserManager->signIn($values->jmeno, $values->heslo, $values->pamatovat);
+                if ($this->getUser()->isInRole(0))
+                {
+                    $this->UserManager->signOut();
+                    $this->flashMessage("Váš účet byl zablokován.", "danger");
+                    $this->redirect("Homepage:");
+                }
                 $this->flashMessage("Přihlášení proběhlo úspěšně.", "success");
                 $this->redirect("Homepage:");
             }

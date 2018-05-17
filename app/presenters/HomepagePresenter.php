@@ -37,24 +37,19 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
         $grid->setDataSource($this->GoodsManager->getGoodsGrid());
 
         $grid->addColumnNumber("id", "ID")
-            ->addAttributes(["class" => "col-1"])
             ->setSortable();
 
         $grid->addColumnText("nazev", "Název")
-            ->addAttributes(["class" => "col-4"])
             ->setSortable()
             ->setFilterText()
             ->setPlaceholder("Hledat...");
 
-        $grid->addColumnText("kod", "Kód")
-            ->addAttributes(["class" => "col-3"]);
+        $grid->addColumnText("kod", "Kód");
 
         $grid->addColumnText("cena", "Cena")
-            ->addAttributes(["class" => "col-3"])
             ->setSortable();
 
         $grid->addColumnText("id_kategorie", "Kategorie")
-            ->addAttributes(["class" => "col-1"])
             ->setReplacement([1 => "S", 2 => "M", 3 => "L", 4 => "XL"])
             ->setFilterSelect(["" => "Vše", 1 => "S", 2 => "M", 3 => "L", 4 => "XL"]);
 
