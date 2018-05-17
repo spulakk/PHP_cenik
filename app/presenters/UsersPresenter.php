@@ -45,13 +45,13 @@ class UsersPresenter extends Nette\Application\UI\Presenter
         $grid->setDataSource($this->UserManager->getUsersGrid());
 
         $grid->addColumnText("jmeno", "Jméno")
-            ->addAttributes(["class" => "col-sm-5"]);
+            ->addAttributes(["class" => "col-5"]);
 
         $grid->addColumnText("email", "Email")
-            ->addAttributes(["class" => "col-sm-5"]);
+            ->addAttributes(["class" => "col-5"]);
 
         $grid->addColumnStatus("id_role", "Role")
-            ->addAttributes(["class" => "col-sm-2"])
+            ->addAttributes(["class" => "col-2"])
             ->addOption(1, "user")
                 ->setClass("btn-sm btn-outline-danger")
                 ->endOption()
