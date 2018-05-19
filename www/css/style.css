@@ -73,6 +73,10 @@ form .error {
     width: 60%;
 }
 
+.col-sm-9 {
+    flex: 100% !important;
+    max-width: 100% !important;
+}
 
 .help-block {
     color: red;
@@ -93,15 +97,14 @@ form .error {
     text-decoration: none;
 }
 
-.footer {
-    left: 0;
-    bottom: 0;
+#footer {
+    height: 60px;
     width: 100%;
     background-color: lightskyblue;
     text-align: center;
 }
 
-.footer p {
+#footer p {
     padding: 3px 5px;
     margin: 0;
 }

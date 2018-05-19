@@ -28,6 +28,25 @@ class GoodsManager
     }
 
     /**
+     * Check if item already exists
+     *
+     * @param $name
+     * @return bool
+     */
+    public function itemExists($name)
+    {
+        $user = $this->Database->table("zbozi")
+            ->where("nazev", $name)
+            ->fetch();
+        if (!$user) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    /**
      * Array of categories and their IDs
      *
      * @return array

@@ -23,10 +23,10 @@
 	<div class="topnav">
 		<a {if $page == "Homepage:default"}class="active"{/if} n:href="Homepage:">Tabulka</a>
 		{if $user->loggedIn}
-		<a {if $page == "Item:create"}class="active"{/if} n:href="Item:create">Přidat položku</a>
-		{if $user->roles["role"] == 2}
-			<a {if $page == "Users:default"}class="active"{/if} n:href="Users:">Uživatelé</a>
-		{/if}
+			<a {if $page == "Item:create"}class="active"{/if} n:href="Item:create">Přidat položku</a>
+			{if $user->roles["role"] == 2}
+				<a {if $page == "Users:default"}class="active"{/if} n:href="Users:">Uživatelé</a>
+			{/if}
 			<a n:href="Sign:out" id="login">Odhlásit</a>
 			<p>{icon user} {$user->identity->name}</p>
 		{else}
@@ -35,6 +35,11 @@
 	</div>
 
 	{include content}
+
+    <div id="footer">
+        <p>© Kryštof Špulák, 2018</p>
+        <p>Powered by Nette & Bootstrap 4</p>
+    </div>
 
 	{block scripts}
 		<script src="{$basePath}/bower_components/jquery/dist/jquery.js"></script>
@@ -49,6 +54,7 @@
 		<script src="{$basePath}/bower_components/ublaboo-datagrid/assets/dist/datagrid-spinners.js"></script>
 		<script src="{$basePath}/bower_components/bootstrap/dist/js/bootstrap.js"></script>
 		<script src="{$basePath}/bower_components/bootstrap-select/dist/js/bootstrap-select.js"></script>
+        <script src="{$basePath}/js/sticky_footer.js"></script>
 		<script>
             $.nette.init();
 		</script>

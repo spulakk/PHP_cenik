@@ -97,6 +97,11 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
         return $grid;
     }
 
+    /**
+     * Handler for action "smazat"
+     *
+     * @param $id
+     */
     public function handleSmazat($id)
     {
         $this->GoodsManager->removeItem($id);

@@ -81,11 +81,14 @@ class SignPresenter extends Nette\Application\UI\Presenter
                 if ($this->getUser()->isInRole(0))
                 {
                     $this->UserManager->signOut();
-                    $this->flashMessage("Váš účet byl zablokován.", "danger");
+                    $this->flashMessage("Váš účet byl zablokován. Obraťte se na správce stránky pro více informací.", "danger");
                     $this->redirect("Homepage:");
                 }
-                $this->flashMessage("Přihlášení proběhlo úspěšně.", "success");
-                $this->redirect("Homepage:");
+                else
+                {
+                    $this->flashMessage("Přihlášení proběhlo úspěšně.", "success");
+                    $this->redirect("Homepage:");
+                }
             }
             catch (Nette\Security\AuthenticationException $e)
             {
@@ -111,16 +114,22 @@ class SignPresenter extends Nette\Application\UI\Presenter
         $form->setRenderer(new BootstrapRenderer());
 
         $form->addText("jmeno", "Jméno:")
-            ->setRequired();
+            ->setRequired()
+            ->addCondition(Form::FILLED)
+                ->addRule(Form::MAX_LENGTH, "Jméno nesmí obsahovat více než 20 znaků.", 20);
 
         $form->addEmail("email", "Email:")
             ->setRequired();
 
         $form->addPassword("heslo", "Heslo:")
-            ->setRequired();
+            ->setRequired()
+            ->addCondition(Form::FILLED)
+                ->addRule(Form::MIN_LENGTH, "Heslo musí obsahovat alespoň 6 znaků.", 6);
 
         $form->addPassword("heslo_overeni", "Heslo znovu:")
-            ->setRequired();
+            ->setRequired()
+            ->addCondition(Form::FILLED)
+                ->addRule(Form::EQUAL, "Zadaná hesla se neshodují.", $form["heslo"]);
 
         $form->addSubmit("registrovat", "Registrovat");
 
@@ -138,7 +147,7 @@ class SignPresenter extends Nette\Application\UI\Presenter
      */
     public function signUpFormSuccess(Form $form, Nette\Utils\ArrayHash $values)
     {
-        if ($values->heslo == $values->heslo_overeni) {
+        if (!$this->UserManager->userExists($values->jmeno)) {
             $this->UserManager->createUser([
                 "jmeno" => $values->jmeno,
                 "email" => $values->email,
@@ -149,11 +158,13 @@ class SignPresenter extends Nette\Application\UI\Presenter
             $this->redirect("Sign:in");
         }
         else {
-            $this->flashMessage("Zadaná hesla se neshodují.", "danger");
+            $this->flashMessage("Uživatel s tímto jménem již existuje.", "danger");
         }
     }
 
     /**
+     * Sign:out action
+     *
      * @throws Nette\Application\AbortException
      */
     public function actionOut()

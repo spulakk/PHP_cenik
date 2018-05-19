@@ -44,10 +44,10 @@ class ItemPresenter extends Nette\Application\UI\Presenter
 
         $form->setRenderer(new BootstrapRenderer());
 
-        $form->addText("kod", "Kód:")
+        $form->addText("nazev", "Název:")
             ->setRequired();
 
-        $form->addText("nazev", "Název:")
+        $form->addText("kod", "Kód:")
             ->setRequired();
 
         $form->addText("cena", "Cena:")
@@ -67,12 +67,19 @@ class ItemPresenter extends Nette\Application\UI\Presenter
      *
      * @param Form $form
      * @param Nette\Utils\ArrayHash $values
+     * @throws Nette\Application\AbortException
      */
     public function itemFormSuccess(Form $form, Nette\Utils\ArrayHash $values)
     {
-        $this->GoodsManager->createItem($values);
-
-        $this->flashMessage("Položka byla přidána do ceníku.", "success");
-        $this->redirect("this");
+        if (!$this->GoodsManager->itemExists($values->nazev))
+        {
+            $this->GoodsManager->createItem($values);
+            $this->flashMessage("Položka byla přidána do ceníku.", "success");
+            $this->redirect("this");
+        }
+        else
+        {
+            $this->flashMessage("Položka s tímto názvem již existuje.", "danger");
+        }
     }
 }

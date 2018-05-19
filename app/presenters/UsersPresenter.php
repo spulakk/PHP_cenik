@@ -68,12 +68,23 @@ class UsersPresenter extends Nette\Application\UI\Presenter
         return $grid;
     }
 
+    /**
+     * Change role
+     *
+     * @param $id
+     * @param $new_status
+     */
     public function statusChange($id, $new_status)
     {
         $this->UserManager->changeRole($id, $new_status);
         $this['usersGrid']->redrawItem($id);
     }
 
+    /**
+     * Handler for action "smazat"
+     *
+     * @param $id
+     */
     public function handleSmazat($id)
     {
         $this->UserManager->removeUser($id);

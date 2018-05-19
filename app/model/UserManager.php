@@ -69,6 +69,25 @@ class UserManager
     }
 
     /**
+     * Check if user already exists
+     *
+     * @param $name
+     * @return bool
+     */
+    public function userExists($name)
+    {
+        $user = $this->Database->table("uzivatele")
+            ->where("jmeno", $name)
+            ->fetch();
+        if (!$user) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    /**
      * Create new user in database
      *
      * @param $values
@@ -76,8 +95,8 @@ class UserManager
      */
     public function createUser($values)
     {
-    return $this->Database->table("uzivatele")
-        ->insert($values);
+        return $this->Database->table("uzivatele")
+            ->insert($values);
     }
 
     /**
