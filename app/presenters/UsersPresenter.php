@@ -88,7 +88,6 @@ class UsersPresenter extends Nette\Application\UI\Presenter
     public function handleSmazat($id)
     {
         $this->UserManager->removeUser($id);
-        $this->flashMessage("Uživatel byl odstraněn.", "success");
         $this->redrawControl("flashes");
         $this["usersGrid"]->reload();
     }

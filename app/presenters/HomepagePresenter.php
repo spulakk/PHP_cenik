@@ -89,7 +89,6 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
 
             $grid->getInlineEdit()->onSubmit[] = function($id, $values) {
                 $this->GoodsManager->editItem($id, $values);
-                $this->flashMessage("Položka byla změněna.", "success");
                 $this->redrawControl("flashes");
             };
         }
@@ -105,7 +104,6 @@ class HomepagePresenter extends Nette\Application\UI\Presenter
     public function handleSmazat($id)
     {
         $this->GoodsManager->removeItem($id);
-        $this->flashMessage("Položka byla odstraněna.", "success");
         $this->redrawControl("flashes");
         $this["goodsGrid"]->reload();
     }

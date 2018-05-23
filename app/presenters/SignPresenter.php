@@ -171,7 +171,6 @@ class SignPresenter extends Nette\Application\UI\Presenter
     {
         $this->UserManager->signOut();
 
-        $this->flashMessage("Odhlášení bylo úspěšné.", "success");
         $this->redirect("Homepage:");
     }
 }
