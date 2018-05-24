@@ -35,10 +35,10 @@ class GoodsManager
      */
     public function itemExists($name)
     {
-        $user = $this->Database->table("zbozi")
+        $item = $this->Database->table("zbozi")
             ->where("nazev", $name)
             ->fetch();
-        if (!$user) {
+        if (!$item) {
             return false;
         }
         else {

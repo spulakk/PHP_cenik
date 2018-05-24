@@ -21,7 +21,7 @@
 	{/snippet}
 
 	<div class="topnav">
-		<a {if $page == "Homepage:default"}class="active"{/if} n:href="Homepage:">Tabulka</a>
+		<a {if $page == "Homepage:default"}class="active"{/if} n:href="Homepage:">Ceník</a>
 		{if $user->loggedIn}
 			<a {if $page == "Item:create"}class="active"{/if} n:href="Item:create">Přidat položku</a>
 			{if $user->roles["role"] == 2}
