@@ -50,7 +50,8 @@ CREATE TABLE `uzivatele` (
 TRUNCATE `uzivatele`;
 INSERT INTO `uzivatele` (`id`, `jmeno`, `email`, `heslo`, `id_role`) VALUES
 (1,	'Admin',	'admin@admin.admin',	'$2y$10$00wH8oC/xRBAr1iXTsisj.F0yeadIj0zSxfYWQiabQ16urs0LE5CC',	2),
-(2,	'user',	'user@seznam.cz',	'$2y$10$7U37lyEgA.1ZQdWa7xOSR.a8DyWsXNSyCTta6Ky7dJ/WENMQKCos.',	1);
+(6,	'user1',	'user1@user.cz',	'$2y$10$sGHUFjovG2GwRLpC6Md9He83vYxEcob7cS0oSmuSryYJsLKewEyg.',	1),
+(7,	'user2',	'user2@user.cz',	'$2y$10$80RmIEO2PP6Yr3AVA1Dap.E4D25FJFJimnwPfWB8E2xKMkgB.D5wy',	0);
 
 DROP TABLE IF EXISTS `zbozi`;
 CREATE TABLE `zbozi` (
@@ -558,9 +559,8 @@ INSERT INTO `zbozi` (`id`, `kod`, `nazev`, `cena`, `id_kategorie`) VALUES
 (490,	10600901,	'PS 1309-6-tm',	271,	1),
 (491,	10601001,	'PS 1809-6-tm',	341,	4),
 (492,	10601101,	'PS 2518-6f-tm',	582,	1),
-(493,	1,	'a',	1,	1),
-(494,	2,	'b',	2,	2),
-(495,	3,	'c',	3,	3),
-(496,	4,	'd',	4,	4);
+(493,	10711211,	'GT 710-m',	845,	1),
+(494,	10711221,	'GT 730',	1074,	2);
+
 
 -- 2018-05-16 22:39:15

@@ -86,7 +86,6 @@ class SignPresenter extends Nette\Application\UI\Presenter
                 }
                 else
                 {
-                    $this->flashMessage("Přihlášení proběhlo úspěšně.", "success");
                     $this->redirect("Homepage:");
                 }
             }
@@ -147,7 +146,8 @@ class SignPresenter extends Nette\Application\UI\Presenter
      */
     public function signUpFormSuccess(Form $form, Nette\Utils\ArrayHash $values)
     {
-        if (!$this->UserManager->userExists($values->jmeno)) {
+        if (!$this->UserManager->userExists($values->jmeno))
+        {
             $this->UserManager->createUser([
                 "jmeno" => $values->jmeno,
                 "email" => $values->email,
@@ -157,7 +157,8 @@ class SignPresenter extends Nette\Application\UI\Presenter
             $this->flashMessage("Registrace byla úspěšná.", "success");
             $this->redirect("Sign:in");
         }
-        else {
+        else
+        {
             $this->flashMessage("Uživatel s tímto jménem již existuje.", "danger");
         }
     }
