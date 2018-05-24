@@ -68,6 +68,10 @@ form .error {
     margin: 0 auto;
 }
 
+.datagrid table tbody tr .datagrid-inline-edit .form-control {
+    height: 38px !important;
+}
+
 .formContainer {
     margin: 20px auto;
     width: 60%;

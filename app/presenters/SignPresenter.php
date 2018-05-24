@@ -86,7 +86,6 @@ class SignPresenter extends Nette\Application\UI\Presenter
                 }
                 else
                 {
-                    $this->flashMessage("Přihlášení proběhlo úspěšně.", "success");
                     $this->redirect("Homepage:");
                 }
             }
